@@ -70,18 +70,23 @@ def threaded(client_socket, addr):
 
 
 ''''
-CODE 100 : BODY의 이름으로 클라이언트 추가
-CODE 200 : CLASS, PERIOD, DAY_WEEK 값으로 해당 교실의 수업여부 조회
+CODE 10 : BODY의 이름으로 클라이언트 추가
+CODE 20 : CLASS, PERIOD, DAY_WEEK 값으로 해당 교실의 수업여부 조회
+
+응답 코드:
+CODE X1 : 정상적인 응답
+CODE X2 : 데이터 부재
+CODE X3 : 서버 오류
 '''
 def parse_data(data, client_socket):
-    if data['CODE'] == 100:
+    if data['CODE'] == 10:
         clients[data['BODY']] = client_socket
-        return {"CODE" : 101, "BODY" : "OK"}
-    elif data['CODE'] == 200:
+        return {"CODE" : 11, "BODY" : "OK"}
+    elif data['CODE'] == 20:
         # 해당 요일, 시간, 강의실의 수업정보
         result = db.get_class_data(data["CLASS"], data["PERIOD"], data["DAY_WEEK"])
-        if(len(result) == 0): return {"CODE" : 202, "BODY" : "NO_DATA"}
-        else: return {"CODE" : 201, "BODY" : result[0]}
+        if(len(result) == 0): return {"CODE" : 22}
+        else: return {"CODE" : 21, "BODY" : result[0]}
         
 if __name__=="__main__":
     main()

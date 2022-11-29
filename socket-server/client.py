@@ -26,7 +26,7 @@ print ('>> Connect Server')
 
 
 #먼저 D127이름으로 등록한다.
-message = json.dumps({"CODE" : 100, "BODY" : "D127"},  ensure_ascii = False)
+message = json.dumps({"CODE" : 10, "BODY" : "D127"},  ensure_ascii = False)
 client_socket.send(message.encode("utf-8"))
 
 time.sleep(2)
@@ -38,7 +38,7 @@ while True:
     #50분이 되면 다음시간에 수업이 있는지 체크
     if(now.minute == 50):
         period = now.hour - 7 # 다음시간의 교시
-        message = json.dumps({"CODE": 200, "CLASS": "D127", "PERIOD": period, "DAY_WEEK": "화"}, ensure_ascii=False)
+        message = json.dumps({"CODE": 20, "CLASS": "D127", "PERIOD": period, "DAY_WEEK": "화"}, ensure_ascii=False)
         client_socket.send(message.encode("utf-8"))
         time.sleep(60)
 
