@@ -2,6 +2,8 @@ import socket
 from _thread import *
 import json
 import time
+from datetime import datetime
+
 
 HOST = '127.0.0.1'
 PORT = 9999
@@ -29,15 +31,17 @@ client_socket.send(message.encode("utf-8"))
 
 time.sleep(2)
 
-message = json.dumps({"CODE" : 200, "CLASS" : "D127", "PERIOD" : 1, "DAY_WEEK" : "화"}, ensure_ascii = False)
-client_socket.send(message.encode("utf-8"))
-
 while True:
-    message = input('')
-    if message == 'quit':
-        close_data = message
-        break
 
-    client_socket.send(message.encode())
+    now = datetime.now()
+
+    #50분이 되면 다음시간에 수업이 있는지 체크
+    if(now.minute == 50):
+        period = now.hour - 7
+        print(period)
+        message = json.dumps({"CODE": 200, "CLASS": "D127", "PERIOD": period, "DAY_WEEK": "화"}, ensure_ascii=False)
+        client_socket.send(message.encode("utf-8"))
+        time.sleep(60)
+
 
 client_socket.close()
