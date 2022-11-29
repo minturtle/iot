@@ -1,7 +1,7 @@
 import socket
 from _thread import *
 import json
-import service
+import db
 
 clients = {} # 서버에 접속한 클라이언트 목록
 
@@ -76,10 +76,12 @@ CODE 200 : CLASS, PERIOD, DAY_WEEK 값으로 해당 교실의 수업여부 조�
 def parse_data(data, client_socket):
     if data['CODE'] == 100:
         clients[data['BODY']] = client_socket
-        return {"status" : "OK"}
+        return {"CODE" : 101, "BODY" : "OK"}
     elif data['CODE'] == 200:
         # 해당 요일, 시간, 강의실의 수업정보
-        return service.get_class_data(data["CLASS"], data["PERIOD"], data["DAY_WEEK"])[0]
+        result = db.get_class_data(data["CLASS"], data["PERIOD"], data["DAY_WEEK"])
+        if(len(result) == 0): return {"CODE" : 202, "BODY" : "NO_DATA"}
+        else: return {"CODE" : 201, "BODY" : result[0]}
         
 if __name__=="__main__":
     main()
