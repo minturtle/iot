@@ -4,6 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/People-Counting-in-Real-Time" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/crowd-counting-using-tensorflow" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/opencv" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/socket-server/server/People-Counting-in-Real-Time" vcs="Git" />
   </component>
 </project>

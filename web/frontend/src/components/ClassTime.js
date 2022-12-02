@@ -47,6 +47,7 @@ function ClassTime(){
 
       return(
       <>
+        <h4>시간표 조회하기</h4>
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>강의실</Form.Label>
