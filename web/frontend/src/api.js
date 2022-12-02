@@ -6,7 +6,7 @@ const classTimeApi = async(classroom, dayweek, period)=>{
     {params : {classroom : classroom, dayweek : dayweek , period : period}}
     );
 
-    return result.data.BODY;
+    return result.data;
 }
 
 

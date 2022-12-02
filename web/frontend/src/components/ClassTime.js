@@ -19,8 +19,24 @@ function ClassTime(){
         if (isLoading) {
           getClassTime().then((result) => {
             setLoading(false);
-            console.log(result)
-          });
+            if(result.CODE == "21"){
+              let body = result.BODY;
+              document.getElementById("search_result").innerHTML = `
+              <br />
+              <h5>조회 결과</h5>
+              <p> 과목 코드 : ${body.code}</p>
+              <p> 과목 이름 : ${body.class_name}</p>
+              <p> 수강 학년 : ${body.grade}</p>
+              <p> 교수명 : ${body.professor_name}</p>
+              <p> 학점 : ${body.score}</p>`
+            }
+            else{
+              document.getElementById("search_result").innerHTML = "<br /><h5>수업을 조회할 수 없습니다.</h5>";
+            }
+        
+        }
+          
+          );
         }
       }, [isLoading]);
 
