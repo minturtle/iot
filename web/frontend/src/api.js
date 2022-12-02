@@ -18,9 +18,26 @@ const attendanceApi = async (classroom) =>{
     return result;
 }
 
+const getTemperatureApi = async (classroom) =>{
+    let result = await axios.get(server + "/class/temper",
+    {params : {classroom : classroom}});
+
+    return result;
+}
+
+const setTemperatureApi = async (classroom, hopeTemper) => {
+    let result = await axios.post(server + "/class/temper",
+    {classroom : classroom, temper : hopeTemper});
+
+    return result
+}
+
+
 const api = {
     classTimeApi : classTimeApi,
-    attendanceApi : attendanceApi
+    attendanceApi : attendanceApi,
+    getTemperatureApi : getTemperatureApi,
+    setTemperatureApi : setTemperatureApi
 }
 
 export default api;

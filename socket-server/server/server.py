@@ -68,10 +68,13 @@ def threaded(client_socket, addr):
 
 
 ''''
-CODE 10 : BODY의 이름으로 클라이언트 추가
-CODE 20 : CLASS, PERIOD, DAY_WEEK 값으로 해당 교실의 수업여부 조회
-CODE 30 : CLASS 값으로 해당 교실의 출석 인원 수를 분석해서 조회
-
+CODE 1X : BODY의 이름으로 클라이언트 추가
+CODE 2X : CLASS, PERIOD, DAY_WEEK 값으로 해당 교실의 수업여부 조회
+CODE 3X : CLASS 값으로 해당 교실의 출석 인원 수를 분석해서 조회
+CODE 4X : 라즈베리로부터 출석 인원수를 받음.
+CODE 5X : CLASS 값으로 해당 교실의 온도를 측정해서 조회
+CODE 6X : 라즈베리베리로부터 온습도를 받음.
+CODE 7X : CLASS, HOPE_TEMPERATURE 값으로 해당 교실의 온도를 조정
 응답 코드:
 CODE X1 : 정상적인 응답
 CODE X2 : 데이터 부재
@@ -95,8 +98,22 @@ def parse_data(data, client_socket):
         clients[data['CLASS']].send(json.dumps({"CODE" : 30}).encode('utf-8'))
 
         return None
-    elif data['CODE'] == 31:
+    elif data['CODE'] == 40:
         clients["WEB"].send(json.dumps(data, ensure_ascii=False).encode('utf-8'))
 
+    elif data['CODE'] == 50:
+        if not data['CLASS'] in clients: return {"CODE": 53}
+
+        # 해당 강의실과 연결된 라즈베리파이로 갯수를 요청한다.
+        clients[data['CLASS']].send(json.dumps({"CODE": 50}).encode('utf-8'))
+
+    elif data['CODE'] == 60:
+        clients["WEB"].send(json.dumps(data, ensure_ascii=False).encode('utf-8'))
+
+    elif data['CODE'] == 70:
+        if not data['CLASS'] in clients: return {"CODE": 73}
+        clients[data['CLASS']].send(json.dumps(data).encode('utf-8'))
+
+        return {"CODE" : 71}
 if __name__=="__main__":
     main()

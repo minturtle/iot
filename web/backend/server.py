@@ -44,5 +44,33 @@ def getClassAttendance():
 
     return data
 
+
+@app.route("/class/temper" ,methods = ['POST', 'GET'])
+def temperature():
+    if request.method == "GET":
+        return requestGetTemper(request.args["classroom"])
+    else:
+        params = request.get_json()
+        return requestSetTemper(params["classroom"], params["temper"])
+
+
+def requestGetTemper(classroom):
+    message = json.dumps({"CODE": 50, "CLASS": classroom}, ensure_ascii=False)
+    client_socket.send(message.encode("utf-8"))
+    data = client_socket.recv(1024)
+
+    return data
+
+
+def requestSetTemper(classroom, temper):
+    message = json.dumps({"CODE": 70, "CLASS": classroom, "HOPE_TEMPERATURE" : temper}, ensure_ascii=False)
+    client_socket.send(message.encode("utf-8"))
+
+    data = client_socket.recv(1024)
+
+    return data
+
+
+
 if __name__ =="__main__" :
     app.run('0.0.0.0', port=5000, debug=True)

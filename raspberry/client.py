@@ -14,7 +14,12 @@ client_socket.connect((HOST, PORT))
 def parse_data(data):
     if(data["CODE"] == 30):
         person_count = get_person_count("images/img.jpg")
-        return {"CODE" : 31, "COUNT" : person_count}
+        return {"CODE" : 40, "COUNT" : person_count}
+    if(data["CODE"] == 50):
+        return {"CODE" : 60, "temperature" : 23 , "humid" : "30%"}
+    if (data["CODE"] == 70):
+        print("set temperature : " + data["HOPE_TEMPERATURE"])
+        return {"CODE" : 71}
 
 # 서버로부터 메세지를 받는 메소드
 # 스레드로 구동 시켜, 메세지를 보내는 코드와 별개로 작동하도록 처리

@@ -13,9 +13,14 @@ function Attendance(){
     useEffect(() => {
         if (isLoading) {
             api.attendanceApi(classroom).then(res=>{
-                console.log(res);
                 setLoading(false);
-            }).catch(()=>setLoading(true));
+                const resultdiv = document.getElementById("attendance_result")
+                
+                if(res.data.CODE == 33) resultdiv.innerHTML = `<br/><p>해당 강의실과 연결된 라즈베리파이가 없습니다.</p>`
+                else resultdiv.innerHTML = `<br/><h5>출석체크 결과</h5>
+                <p>${res.data.COUNT}명이 출석했습니다.</p>`
+            }).catch(()=>setLoading(false));
+
         }
       }, [isLoading]);
 
@@ -35,6 +40,7 @@ function Attendance(){
             onClick={!isLoading ? handleClick : null}>
             {isLoading ? 'Loading…' : '출석체크 요청하기'}
             </Button>
+            <div id="attendance_result"></div>
         </>
 
     )
