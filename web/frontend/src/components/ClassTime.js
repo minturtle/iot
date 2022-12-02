@@ -54,7 +54,8 @@ function ClassTime(){
             disabled={isLoading}
             onClick={!isLoading ? handleClick : null}>
             {isLoading ? 'Loading…' : '시간표 조회하기'}
-        </Button>
+      </Button>
+      <div id="search_result"></div>
       </>
       )
 }

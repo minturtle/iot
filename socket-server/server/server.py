@@ -42,14 +42,13 @@ def threaded(client_socket, addr):
         try:
             # 클라이언트의 요청을 대기합니다.
             raw_data = client_socket.recv(1024)
-            print(raw_data)
+
             if not raw_data:
                 print('>> Disconnected by ' + addr[0], ':', addr[1])
                 break
 
 
             data = json.loads(raw_data.decode("utf-8"))
-
 
             #서버에서 request 분석 후 알맞은 응답 정보 생성
             resp = parse_data(data, client_socket)

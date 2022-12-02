@@ -2,9 +2,11 @@ import axios from "axios";
 
 const classTimeApi = async(classroom, dayweek, period)=>{
     
-    return axios.get("http://localhost:5000/",
+    let result = await axios.get("http://localhost:5000/",
     {params : {classroom : classroom, dayweek : dayweek , period : period}}
     );
+
+    return result.data.BODY;
 }
 
 
