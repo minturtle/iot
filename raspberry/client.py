@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 from image_service import get_person_count
 
-HOST = '127.0.0.1'
+HOST = '34.168.65.229'
 PORT = 9999
 
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
